@@ -1,26 +1,17 @@
-from dataclasses import replace
+import random
 
-from bgpy.shared.enums import ASGroups
-from bgpy.simulation_framework import ForgedOriginPrefixHijack, ScenarioConfig
-
-from .utils import CLASSES_TO_RUN, ASPASim
+from frozendict import frozendict
 
 from bgpy.as_graphs import CAIDAASGraphConstructor
-from bgpy.shared.enums import ASGroups
-from bgpy.simulation_engine import ASPA, ROV
-from bgpy.simulation_framework import (
-    AccidentalRouteLeak,
-    ForgedOriginPrefixHijack,
-    Scenario,
-    ScenarioConfig,
-)
-from frozendict import frozendict
+from bgpy.simulation_engine import BGPFull
+from bgpy.simulation_framework import ScenarioConfig
+from withdrawal_suppression_eval.policies import DropWithdrawalsFull
+from withdrawal_suppression_eval.scenarios import VictimsPrefixWithdrawalScenario
 
 
 def get_scenario_configs():
 
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
-    total_ases = len(bgp_dag)
     asns = tuple(bgp_dag.as_dict.values())
 
     def get_percentage_hardcoded_asn_cls_dict(percent):
@@ -31,27 +22,27 @@ def get_scenario_configs():
             }
         )
 
-    5_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.05)
-    10_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.1)
-    20_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.2)
+    five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.05)
+    ten_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.1)
+    twenty_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(.2)
 
     return (
         ScenarioConfig(
             BasePolicyCls=BGPFull,
             ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=5_percent_hardcoded_asn_cls_dict,
+            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
             scenario_label="5% Dropping Withdrawals"
         ),
         ScenarioConfig(
             BasePolicyCls=BGPFull,
             ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=10_percent_hardcoded_asn_cls_dict,
+            hardcoded_asn_cls_dict=ten_percent_hardcoded_asn_cls_dict,
             scenario_label="10% Dropping Withdrawals"
         ),
         ScenarioConfig(
             BasePolicyCls=BGPFull,
             ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=20_percent_hardcoded_asn_cls_dict,
+            hardcoded_asn_cls_dict=twenty_percent_hardcoded_asn_cls_dict,
             scenario_label="20% Dropping Withdrawals"
         ),
     )
