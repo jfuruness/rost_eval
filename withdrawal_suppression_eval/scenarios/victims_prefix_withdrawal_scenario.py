@@ -8,7 +8,6 @@ if TYPE_CHECKING:
 
 
 class VictimsPrefixWithdrawalScenario(VictimsPrefixScenario):
-
     min_propagation_rounds: int = 2
 
     def post_propagation_hook(

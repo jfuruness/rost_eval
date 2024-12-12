@@ -6,6 +6,7 @@ from .sims import WithdrawalSuppressionSim, get_scenario_configs
 logger = logging.getLogger("withdrawal_suppression_eval")
 logger.setLevel(logging.INFO)
 
+
 def main():
     """Runs the defaults"""
 
