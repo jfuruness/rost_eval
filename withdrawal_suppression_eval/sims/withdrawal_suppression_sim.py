@@ -1,11 +1,10 @@
 from datetime import datetime
-from multiprocessing import cpu_count
 from pathlib import Path
 
-from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
-from bgpy.shared.enums import ASGroups
-from bgpy.simulation_framework import ScenarioConfig, Simulation
 from frozendict import frozendict
+
+from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
+from bgpy.simulation_framework import Simulation
 
 
 class WithdrawalSuppressionSim(Simulation):

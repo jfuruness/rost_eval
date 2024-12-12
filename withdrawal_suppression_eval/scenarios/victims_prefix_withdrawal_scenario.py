@@ -1,4 +1,10 @@
+from typing import TYPE_CHECKING
+
+from bgpy.shared.enums import Prefixes, SpecialPercentAdoptions
 from bgpy.simulation_framework import VictimsPrefixScenario
+
+if TYPE_CHECKING:
+    from bgpy.simulation_engine import BaseSimulationEngine
 
 
 class VictimsPrefixWithdrawalScenario(VictimsPrefixScenario):
