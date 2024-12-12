@@ -1,13 +1,13 @@
 from typing import TYPE_CHECKING
 
 from bgpy.shared.enums import Prefixes, SpecialPercentAdoptions
-from bgpy.simulation_framework import VictimsPrefixScenario
+from bgpy.simulation_framework import VictimsPrefix
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import BaseSimulationEngine
 
 
-class VictimsPrefixWithdrawalScenario(VictimsPrefixScenario):
+class VictimsPrefixWithdrawalScenario(VictimsPrefix):
     min_propagation_rounds: int = 2
 
     def post_propagation_hook(

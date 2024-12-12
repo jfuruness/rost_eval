@@ -7,4 +7,4 @@ class DropWithdrawalsFull(BGPFull):
 
         for prefix, anns in self.recv_q.copy().items():
             self.recv_q[prefix] = [x for x in anns if not x.withdraw]
-        super().process_incoming_anns(*args, **kwargs)  # type: ignore
+        super().process_incoming_anns(*args, **kwargs)
