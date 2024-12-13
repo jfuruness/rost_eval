@@ -11,10 +11,10 @@ from withdrawal_suppression_eval.scenarios import VictimsPrefixWithdrawalScenari
 
 def get_scenario_configs():
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
-    asns = tuple(bgp_dag.as_dict.values())
+    asns = tuple(bgp_dag.as_dict)
 
     def get_percentage_hardcoded_asn_cls_dict(percent):
-        k = percent * len(bgp_dag)
+        k = int(percent * len(asns))
         return frozendict({asn: DropWithdrawalsFull for asn in random.sample(asns, k)})
 
     five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.05)
