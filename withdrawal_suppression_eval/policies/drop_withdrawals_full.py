@@ -1,7 +1,7 @@
-from bgpy.simulation_engine import BGPFull
+from .bgp_allow_invalid_full import BGPAllowInvalidFull
 
 
-class DropWithdrawalsFull(BGPFull):
+class DropWithdrawalsFull(BGPAllowInvalidFull):
     def process_incoming_anns(self, *args, **kwargs):  # type: ignore
         """Removes withdrawals, then calls super"""
 

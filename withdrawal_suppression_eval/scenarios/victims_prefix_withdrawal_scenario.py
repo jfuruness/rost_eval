@@ -25,6 +25,9 @@ class VictimsPrefixWithdrawalScenario(VictimsPrefix):
             for asn in self.victim_asns | self.adopting_asns:
                 as_obj = engine.as_graph.as_dict[asn]
                 try:
+                    # We can clear this since there are no alternatives
+                    for k in as_obj.policy.ribs_in:
+                        as_obj.policy.ribs_in[k].clear()
                     as_obj.policy.prep_withdrawal_for_next_propagation(
                         Prefixes.PREFIX.value
                     )

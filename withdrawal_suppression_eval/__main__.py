@@ -10,6 +10,7 @@ logger.setLevel(logging.INFO)
 def main():
     """Runs the defaults"""
 
+    assert False, "Asserts must be turned off using -O since we break proper BGP"
     start = time.perf_counter()
     sim = WithdrawalSuppressionSim(scenario_configs=get_scenario_configs())
     sim.run()
