@@ -55,6 +55,7 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.info("Takes 23m for 10 trials on 10 CPUs")
     start = time.perf_counter()
     main()
     logging.info(f"{time.perf_counter() - start}s for all sims")
