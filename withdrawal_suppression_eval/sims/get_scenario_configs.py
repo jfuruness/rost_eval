@@ -5,7 +5,10 @@ from frozendict import frozendict
 from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.simulation_engine import BGPFull
 from bgpy.simulation_framework import ScenarioConfig
-from withdrawal_suppression_eval.policies import BGPAllowInvalidFull, DropWithdrawalsFull
+from withdrawal_suppression_eval.policies import (
+    BGPAllowInvalidFull,
+    DropWithdrawalsFull,
+)
 from withdrawal_suppression_eval.scenarios import VictimsPrefixWithdrawalScenario
 
 

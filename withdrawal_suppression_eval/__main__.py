@@ -2,7 +2,13 @@ import logging
 import time
 from typing import Iterable
 
-from bgpy.shared.enums import ASGroups, InAdoptingASNs, Outcomes, Plane, SpecialPercentAdoptions
+from bgpy.shared.enums import (
+    ASGroups,
+    InAdoptingASNs,
+    Outcomes,
+    Plane,
+    SpecialPercentAdoptions,
+)
 from bgpy.simulation_framework.graph_data_aggregator.graph_category import GraphCategory
 
 from .sims import WithdrawalSuppressionSim, get_scenario_configs

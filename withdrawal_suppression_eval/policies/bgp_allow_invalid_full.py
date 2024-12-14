@@ -33,19 +33,25 @@ class BGPAllowInvalidFull(BGPFull):
             for ann in anns:
                 # withdrawals
                 err = "Recieved two withdrawals from the same neighbor"
-                assert len([x.as_path[0] for x in anns if x.withdraw]) == len(
-                    {x.as_path[0] for x in anns if x.withdraw}
-                ) and self.error_on_invalid_routes, err
+                assert (
+                    len([x.as_path[0] for x in anns if x.withdraw])
+                    == len({x.as_path[0] for x in anns if x.withdraw})
+                    and self.error_on_invalid_routes
+                ), err
 
                 err = (
                     f"{self.as_.asn} Recieved two NON withdrawals "
                     f"from the same neighbor {anns}"
                 )
-                assert len(
-                    [(x.as_path[0], x.next_hop_asn) for x in anns if not x.withdraw]
-                ) == len(
-                    {(x.as_path[0], x.next_hop_asn) for x in anns if not x.withdraw}
-                ) and self.error_on_invalid_routes, err
+                assert (
+                    len(
+                        [(x.as_path[0], x.next_hop_asn) for x in anns if not x.withdraw]
+                    )
+                    == len(
+                        {(x.as_path[0], x.next_hop_asn) for x in anns if not x.withdraw}
+                    )
+                    and self.error_on_invalid_routes
+                ), err
 
                 # Always add to ribs in if it's not a withdrawal
                 if not ann.withdraw:
@@ -55,9 +61,13 @@ class BGPAllowInvalidFull(BGPFull):
                         "have it be blank, then add the new one"
                     )
                     assert (
-                        self.ribs_in.get_unprocessed_ann_recv_rel(ann.as_path[0], prefix)
+                        self.ribs_in.get_unprocessed_ann_recv_rel(
+                            ann.as_path[0], prefix
+                        )
                         is None
-                    ) and self.error_on_invalid_routes, str(self.as_.asn) + " " + str(ann) + err
+                    ) and self.error_on_invalid_routes, (
+                        str(self.as_.asn) + " " + str(ann) + err
+                    )
 
                     self.ribs_in.add_unprocessed_ann(ann, from_rel)
                 # Process withdrawals even for invalid anns in the ribs_in
@@ -107,9 +117,12 @@ class BGPAllowInvalidFull(BGPFull):
                 err = f"withdrawing ann that is same as new ann {withdraw_ann}"
                 if not current_processed:
                     assert current_ann is not None, "mypy type check"
-                    assert not withdraw_ann.prefix_path_attributes_eq(
-                        self._copy_and_process(current_ann, from_rel)
-                    ) and self.error_on_invalid_routes, err
+                    assert (
+                        not withdraw_ann.prefix_path_attributes_eq(
+                            self._copy_and_process(current_ann, from_rel)
+                        )
+                        and self.error_on_invalid_routes
+                    ), err
 
             # We have a new best!
             if current_processed is False:
@@ -119,7 +132,6 @@ class BGPAllowInvalidFull(BGPFull):
                 self.local_rib.add_ann(current_ann)
 
         self._reset_q(reset_q)
-
 
     def _process_incoming_withdrawal(
         self: "BGPFull",
@@ -147,7 +159,10 @@ class BGPAllowInvalidFull(BGPFull):
                 f"Cannot withdraw ann that was never sent.\n\t "
                 f"Ribs in: {current_ann_ribs_in}\n\t withdraw: {ann}"
             )
-            assert ann.prefix_path_attributes_eq(current_ann_ribs_in) and self.error_on_invalid_routes, err
+            assert (
+                ann.prefix_path_attributes_eq(current_ann_ribs_in)
+                and self.error_on_invalid_routes
+            ), err
 
             # Remove ann from Ribs in
             self.ribs_in.remove_entry(neighbor, prefix)
@@ -176,10 +191,12 @@ class BGPAllowInvalidFull(BGPFull):
                 self.local_rib.add_ann(best_ann)
 
             err = "Best ann should not be identical to the one we just withdrew"
-            assert not withdraw_ann.prefix_path_attributes_eq(best_ann) and self.error_on_invalid_routes, err
+            assert (
+                not withdraw_ann.prefix_path_attributes_eq(best_ann)
+                and self.error_on_invalid_routes
+            ), err
             return True
         return False
-
 
     def _withdraw_ann_from_neighbors(self: "BGPFull", withdraw_ann: "Ann") -> None:
         """Withdraw a route from all neighbors.
