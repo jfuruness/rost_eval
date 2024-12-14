@@ -36,7 +36,6 @@ logger.setLevel(logging.INFO)
 def main():
     """Runs the defaults"""
 
-    assert False, "Asserts must be turned off using -O since we break proper BGP"
     start = time.perf_counter()
     sim = WithdrawalSuppressionSim(
         percent_adoptions=(

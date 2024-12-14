@@ -263,6 +263,7 @@ ignore = [
     # since f strings are done automatically, whereas passing extra= doesn't format
     # unless the log level is low enough. Such a pain, idc
     "G001", "G002", "G003", "G004",
+    "PT018",
 ]
 
 unfixable = []
