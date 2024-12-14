@@ -33,7 +33,7 @@ def get_scenario_configs():
         ScenarioConfig(
             BasePolicyCls=BGPAllowInvalidFull,
             ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+            hardcoded_asn_cls_dict=one_percent_hardcoded_asn_cls_dict,
             scenario_label="1% Dropping Withdrawals",
         ),
         ScenarioConfig(
