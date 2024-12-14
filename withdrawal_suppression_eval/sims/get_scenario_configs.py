@@ -17,34 +17,29 @@ def get_scenario_configs():
         k = int(percent * len(asns))
         return frozendict({asn: DropWithdrawalsFull for asn in random.sample(asns, k)})
 
+    one_tenth_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(
+        0.001
+    )
     one_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.01)
     five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.05)
-    ten_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.1)
-    twenty_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.2)
 
     return (
         ScenarioConfig(
             BasePolicyCls=BGPAllowInvalidFull,
             ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
-            scenario_label="1% Dropping Withdrawals",
+            hardcoded_asn_cls_dict=one_tenth_percent_hardcoded_asn_cls_dict,
+            scenario_label="0.1% Dropping Withdrawals",
         ),
-        ScenarioConfig(
-            BasePolicyCls=BGPAllowInvalidFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
-            scenario_label="5% Dropping Withdrawals",
-        ),
-        ScenarioConfig(
-            BasePolicyCls=BGPAllowInvalidFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=ten_percent_hardcoded_asn_cls_dict,
-            scenario_label="10% Dropping Withdrawals",
-        ),
-        ScenarioConfig(
-            BasePolicyCls=BGPAllowInvalidFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=twenty_percent_hardcoded_asn_cls_dict,
-            scenario_label="20% Dropping Withdrawals",
-        ),
+        #ScenarioConfig(
+        #    BasePolicyCls=BGPAllowInvalidFull,
+        #    ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #    hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+        #    scenario_label="1% Dropping Withdrawals",
+        #),
+        #ScenarioConfig(
+        #    BasePolicyCls=BGPAllowInvalidFull,
+        #    ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #    hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+        #    scenario_label="5% Dropping Withdrawals",
+        #),
     )
