@@ -30,16 +30,16 @@ def get_scenario_configs():
             hardcoded_asn_cls_dict=one_tenth_percent_hardcoded_asn_cls_dict,
             scenario_label="0.1% Dropping Withdrawals",
         ),
-        #ScenarioConfig(
-        #    BasePolicyCls=BGPAllowInvalidFull,
-        #    ScenarioCls=VictimsPrefixWithdrawalScenario,
-        #    hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
-        #    scenario_label="1% Dropping Withdrawals",
-        #),
-        #ScenarioConfig(
-        #    BasePolicyCls=BGPAllowInvalidFull,
-        #    ScenarioCls=VictimsPrefixWithdrawalScenario,
-        #    hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
-        #    scenario_label="5% Dropping Withdrawals",
-        #),
+        ScenarioConfig(
+            BasePolicyCls=BGPAllowInvalidFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+            scenario_label="1% Dropping Withdrawals",
+        ),
+        ScenarioConfig(
+            BasePolicyCls=BGPAllowInvalidFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+            scenario_label="5% Dropping Withdrawals",
+        ),
     )
