@@ -7,7 +7,7 @@ from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
 from bgpy.simulation_framework import Simulation
 
 
-class WithdrawalSuppressionSim(Simulation):
+class RoSTSim(Simulation):
     """SimulationClass customized for Withdrawal Suppression sims"""
 
     def __init__(self, *args, **kwargs) -> None:
@@ -30,5 +30,5 @@ class WithdrawalSuppressionSim(Simulation):
         super().__init__(*args, **kwargs)
 
     @property
-    def default_output_dir(self) -> Path:
-        return Path(DIRS.user_desktop_dir) / "sims" / "withdrawal_sims" / self.sim_name
+    def default_sim_name(self) -> str:
+        return "rost_sims"

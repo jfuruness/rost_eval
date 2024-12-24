@@ -3,7 +3,7 @@ requires = ["setuptools>=69.0.3", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "withdrawal_suppression_eval"
+name = "rost_eval"
 version = "0.0.0"
 requires-python = ">=3.10"
 description = "Simulates Withdrawal Suppression"
@@ -18,9 +18,9 @@ license = {file = "LICENSE.txt"}
 keywords = [
     "BGPy",
     "Withdrawal",
-    "withdrawal_suppression_eval",
+    "rost_eval",
     "bgpc",
-    "withdrawal_suppression_eval",
+    "rost_eval",
     "BGP",
     "Caida",
     "CAIDA",
@@ -36,6 +36,7 @@ keywords = [
     "Pathend",
     "OTC",
     "BGPSec",
+    "RoST",
 ]
 classifiers = [
     "Programming Language :: Python :: 3.10",
@@ -55,18 +56,18 @@ classifiers = [
 ]
 
 dependencies = [
-    "bgpy_pkg~=12.0",
+    "bgpy_pkg~=13.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/jfuruness/withdrawal_suppression_eval"
+Homepage = "https://github.com/jfuruness/rost_eval"
 
 [project.scripts]
-withdrawal_suppression_eval = "withdrawal_suppression_eval.__main__:main"
+rost_eval = "rost_eval.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]~=12.0"
+    "bgpy_pkg[test]~=13.0"
 ]
 
 [tool.setuptools]
@@ -74,7 +75,7 @@ include-package-data = true
 
 # https://stackoverflow.com/a/76214408/8903959
 [tool.setuptools.package-data]
-withdrawal_suppression_eval = ["py.typed"]
+rost_eval = ["py.typed"]
 
 # https://stackoverflow.com/a/76214408/8903959
 [tool.setuptools.packages.find]

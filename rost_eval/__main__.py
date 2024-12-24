@@ -11,7 +11,7 @@ from bgpy.shared.enums import (
 )
 from bgpy.simulation_framework.graph_data_aggregator.graph_category import GraphCategory
 
-from .sims import WithdrawalSuppressionSim, get_scenario_configs
+from .sims import RoSTSim, get_scenario_configs
 
 
 def get_all_graph_categories() -> Iterable[GraphCategory]:
@@ -29,7 +29,7 @@ def get_all_graph_categories() -> Iterable[GraphCategory]:
                     )
 
 
-logger = logging.getLogger("withdrawal_suppression_eval")
+logger = logging.getLogger("rost_eval")
 logger.setLevel(logging.INFO)
 
 
@@ -37,7 +37,7 @@ def main():
     """Runs the defaults"""
 
     start = time.perf_counter()
-    sim = WithdrawalSuppressionSim(
+    sim = RoSTSim(
         percent_adoptions=(
             SpecialPercentAdoptions.ONLY_ONE,
             0.1,
@@ -55,7 +55,6 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.info("Takes 23m for 10 trials on 10 CPUs")
     start = time.perf_counter()
     main()
     logging.info(f"{time.perf_counter() - start}s for all sims")
