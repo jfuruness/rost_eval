@@ -1,9 +1,8 @@
 from datetime import datetime
-from pathlib import Path
 
 from frozendict import frozendict
 
-from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
+from bgpy.shared.constants import SINGLE_DAY_CACHE_DIR
 from bgpy.simulation_framework import Simulation
 
 

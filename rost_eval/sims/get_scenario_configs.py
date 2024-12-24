@@ -3,12 +3,12 @@ import random
 from frozendict import frozendict
 
 from bgpy.as_graphs import CAIDAASGraphConstructor
-from bgpy.simulation_framework import ScenarioConfig
 from bgpy.simulation_engine import (
     BGPFullIgnoreInvalid,
     BGPFullWithdrawalSuppression,
-    RoSTFull
+    RoSTFull,
 )
+from bgpy.simulation_framework import ScenarioConfig
 from rost_eval.scenarios import VictimsPrefixWithdrawalScenario
 
 
