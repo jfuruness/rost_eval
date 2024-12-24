@@ -5,7 +5,8 @@ from frozendict import frozendict
 from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.simulation_engine import (
     BGPFullIgnoreInvalid,
-    BGPFullWithdrawalSuppression,
+    BGPFullSuppressWithdrawals,
+    BGPFull,
     RoSTFull,
 )
 from bgpy.simulation_framework import ScenarioConfig
@@ -19,7 +20,7 @@ def get_scenario_configs():
     def get_percentage_hardcoded_asn_cls_dict(percent):
         k = int(percent * len(asns))
         return frozendict(
-            {asn: BGPFullWithdrawalSuppression for asn in random.sample(asns, k)}
+            {asn: BGPFullSuppressWithdrawals for asn in random.sample(asns, k)}
         )
 
     one_tenth_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(
@@ -27,8 +28,21 @@ def get_scenario_configs():
     )
     one_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.01)
     five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.05)
+    twenty_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.2)
+    hundred_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(1)
 
     return (
+        ScenarioConfig(
+            BasePolicyCls=BGPFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            scenario_label="0% Dropping Withdrawals (No RoST)",
+        ),
+        ScenarioConfig(
+            BasePolicyCls=BGPFullIgnoreInvalid,
+            AdoptPolicyCls=RoSTFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            scenario_label="0% Dropping Withdrawals",
+        ),
         ScenarioConfig(
             BasePolicyCls=BGPFullIgnoreInvalid,
             AdoptPolicyCls=RoSTFull,
@@ -49,5 +63,18 @@ def get_scenario_configs():
             ScenarioCls=VictimsPrefixWithdrawalScenario,
             hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
             scenario_label="5% Dropping Withdrawals",
+        ),
+        ScenarioConfig(
+            BasePolicyCls=BGPFullIgnoreInvalid,
+            AdoptPolicyCls=RoSTFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            hardcoded_asn_cls_dict=twenty_percent_hardcoded_asn_cls_dict,
+            scenario_label="20% Dropping Withdrawals",
+        ),
+        ScenarioConfig(
+            BasePolicyCls=BGPFullIgnoreInvalid,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            hardcoded_asn_cls_dict=hundred_percent_hardcoded_asn_cls_dict,
+            scenario_label="100% Dropping Withdrawals, no RoST",
         ),
     )
