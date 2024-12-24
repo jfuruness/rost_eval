@@ -19,9 +19,7 @@ def get_scenario_configs():
     def get_percentage_hardcoded_asn_cls_dict(percent):
         k = int(percent * len(asns))
         return frozendict(
-            {
-                asn: BGPFullWithdrawalSuppression for asn in random.sample(asns, k)
-            }
+            {asn: BGPFullWithdrawalSuppression for asn in random.sample(asns, k)}
         )
 
     one_tenth_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(
