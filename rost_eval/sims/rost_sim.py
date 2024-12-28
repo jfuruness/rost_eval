@@ -108,7 +108,8 @@ class DebugASGraphConstructor(CAIDAASGraphConstructor):
             2497,
             #
             559,
-
+            #
+            1221,
 
         }
         asns_to_keep = asns_to_keep.difference(asns_to_remove)
