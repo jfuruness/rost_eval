@@ -38,18 +38,22 @@ class VictimsPrefixWithdrawalScenario(ValidPrefix):
     def _default_adopters(self) -> frozenset[int]:
         """We don't want the victim to adopt here"""
 
+        return self.victim_asns
         return frozenset()
 
-    def get_policy_cls(self, as_obj: "AS") -> type["Policy"]:
-        """Returns the policy class for a given AS to set"""
+    def _get_victim_asns(self, *args, **kwargs):
+        return frozenset({211909})
 
-        asn = as_obj.asn
-        if asn in self.victim_asns:
-            if asn in self.adopting_asns:
-                return self.scenario_config.AdoptPolicyCls
-            else:
-                return self.scenario_config.hardcoded_base_asn_cls_dict.get(
-                    asn, self.scenario_config.BasePolicyCls
-                )
-        else:
-            return super().get_policy_cls(as_obj)
+    # def get_policy_cls(self, as_obj: "AS") -> type["Policy"]:
+    #     """Returns the policy class for a given AS to set"""
+
+    #     asn = as_obj.asn
+    #     if asn in self.victim_asns:
+    #         if asn in self.adopting_asns:
+    #             return self.scenario_config.AdoptPolicyCls
+    #         else:
+    #             return self.scenario_config.hardcoded_base_asn_cls_dict.get(
+    #                 asn, self.scenario_config.BasePolicyCls
+    #             )
+    #     else:
+    #         return super().get_policy_cls(as_obj)

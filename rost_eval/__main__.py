@@ -39,12 +39,12 @@ def main():
     start = time.perf_counter()
     sim = RoSTSim(
         percent_adoptions=(
-            SpecialPercentAdoptions.ONLY_ONE,
-            0.1,
-            0.2,
+            #SpecialPercentAdoptions.ONLY_ONE,
+            #0.1,
+            #0.2,
             0.5,
-            0.8,
-            0.99,
+            #0.8,
+            #0.99,
         ),
         scenario_configs=get_scenario_configs(),
         control_plane_tracking=True,

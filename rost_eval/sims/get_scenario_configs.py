@@ -1,3 +1,4 @@
+from datetime import datetime
 import random
 
 from frozendict import frozendict
@@ -9,12 +10,30 @@ from bgpy.simulation_engine import (
     BGPFullSuppressWithdrawals,
     RoSTFull,
 )
+from bgpy.shared.constants import SINGLE_DAY_CACHE_DIR
 from bgpy.simulation_framework import ScenarioConfig
 from rost_eval.scenarios import VictimsPrefixWithdrawalScenario
 
 
 def get_scenario_configs():
-    bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
+    from .rost_sim import DebugASGraphConstructor
+    bgp_dag = DebugASGraphConstructor(
+        as_graph_collector_kwargs=frozendict(
+            {
+                "cache_dir": SINGLE_DAY_CACHE_DIR,
+                "dl_time": datetime(2024, 12, 11, 0, 0),
+            }
+        ),
+        as_graph_kwargs=frozendict(
+            {
+                "store_customer_cone_size": True,
+                "store_customer_cone_asns": True,
+                "store_provider_cone_size": True,
+                "store_provider_cone_asns": True,
+            }
+        ),
+        tsv_path=None
+    ).run()
     asns = tuple(bgp_dag.as_dict)
 
     one_t1_hardcoded_asn_cls_dict = frozendict(
