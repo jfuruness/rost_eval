@@ -1,3 +1,7 @@
+import random
+random.seed(0)
+
+
 import logging
 import time
 from typing import Iterable
@@ -39,10 +43,11 @@ def main():
     start = time.perf_counter()
     sim = RoSTSim(
         percent_adoptions=(
+            0,
             #SpecialPercentAdoptions.ONLY_ONE,
             #0.1,
             #0.2,
-            0.5,
+            # 0.5,
             #0.8,
             #0.99,
         ),
