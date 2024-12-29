@@ -21,8 +21,8 @@ def get_scenario_configs():
         {  # type: ignore
             asn: BGPFullSuppressWithdrawals
             for asn in random.sample(
-                bgp_dag.asn_groups[ASGroups.INPUT_CLIQUE.value],
-                1,  # type: ignore
+                bgp_dag.asn_groups[ASGroups.INPUT_CLIQUE.value],  # type: ignore
+                1,
             )
         }
     )
