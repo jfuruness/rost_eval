@@ -31,15 +31,14 @@ class VictimsPrefixWithdrawalOnlyCCScenario(VictimsPrefixWithdrawalScenario):
             adopting_asns=adopting_asns,
         )
         assert engine, "Need engine for customer cones"
-        attacker_customer_cone_asns: set[int] = set()
-        for attacker_asn in self.attacker_asns:
-            attacker_as_obj = engine.as_graph.as_dict[attacker_asn]
-            assert attacker_as_obj.customer_cone_asns, "for mypy"
-            attacker_customer_cone_asns.update(attacker_as_obj.customer_cone_asns)
-
+        suppressor_customer_cone_asns: set[int] = set()
+        for suppressor_asn in self.scenario_config.hardcoded_asn_cls_dict:
+            suppressor_as_obj = engine.as_graph.as_dict[suppressor_asn]
+            assert suppressor_as_obj.customer_cone_asns, "for mypy"
+            suppressor_customer_cone_asns.update(suppressor_as_obj.customer_cone_asns)
         asns = set(engine.as_graph.as_dict)
-        self._extra_untracked_asns = asns.difference(attacker_customer_cone_asns)
+        self._extra_untracked_asns = asns.difference(suppressor_customer_cone_asns)
 
     @property
-    def _untracked_asns(self) -> frozenset[int]:
-        return super()._untracked_asns | self._extra_untracked_asns
+    def untracked_asns(self) -> frozenset[int]:
+        return super().untracked_asns | self._extra_untracked_asns

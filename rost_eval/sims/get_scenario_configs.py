@@ -12,7 +12,7 @@ from bgpy.simulation_engine import (
 from bgpy.simulation_framework import ScenarioConfig
 from rost_eval.scenarios import (
     VictimsPrefixWithdrawalOnlyCCScenario,
-    VictimsPrefixWithdrawalScenario,  # noqa
+    VictimsPrefixWithdrawalScenario,
 )
 
 
@@ -63,13 +63,13 @@ def get_scenario_configs():
             hardcoded_asn_cls_dict=one_t1_hardcoded_asn_cls_dict,
             scenario_label="1 Tier-1 AS (only customer cone)",
         ),
-        # ScenarioConfig(
-        #     BasePolicyCls=BGPFullIgnoreInvalid,
-        #     AdoptPolicyCls=RoSTFull,
-        #     ScenarioCls=VictimsPrefixWithdrawalScenario,
-        #     hardcoded_asn_cls_dict=one_t1_hardcoded_asn_cls_dict,
-        #     scenario_label="1 Tier-1 AS",
-        # ),
+        ScenarioConfig(
+            BasePolicyCls=BGPFullIgnoreInvalid,
+            AdoptPolicyCls=RoSTFull,
+            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            hardcoded_asn_cls_dict=one_t1_hardcoded_asn_cls_dict,
+            scenario_label="1 Tier-1 AS",
+        ),
         # ScenarioConfig(
         #     BasePolicyCls=BGPFullIgnoreInvalid,
         #     AdoptPolicyCls=RoSTFull,

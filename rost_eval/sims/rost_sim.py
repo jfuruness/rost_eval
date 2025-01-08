@@ -19,6 +19,19 @@ class RoSTSim(Simulation):
                         "dl_time": datetime(2024, 12, 11, 0, 0),
                     }
                 ),
+                "as_graph_kwargs": frozendict(
+                    {
+                        # When no ASNs are stored, .9gb/core
+                        # When one set of cones is stored, 1.6gb/core
+                        # When both sets of cones are stored, 2.3gb/core
+                        # Unfortunately, we need both, since we use BGP-iSec
+                        # and also use customer cones for ASRA
+                        "store_customer_cone_size": True,
+                        "store_customer_cone_asns": True,
+                        "store_provider_cone_size": False,
+                        "store_provider_cone_asns": False,
+                    }
+                ),
             }
         )
         # Uncomment this if you're having RAM problems
