@@ -10,7 +10,10 @@ from bgpy.simulation_engine import (
     RoSTFull,
 )
 from bgpy.simulation_framework import ScenarioConfig
-from rost_eval.scenarios import VictimsPrefixWithdrawalScenario
+from rost_eval.scenarios import (
+    VictimsPrefixWithdrawalOnlyCCScenario,
+    VictimsPrefixWithdrawalScenario,  # noqa
+)
 
 
 def get_scenario_configs():
@@ -33,11 +36,11 @@ def get_scenario_configs():
             {asn: BGPFullSuppressWithdrawals for asn in random.sample(asns, k)}
         )
 
-    one_tenth_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(
-        0.001
-    )
-    one_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.01)
-    five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.05)
+    # one_tenth_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(
+    #     0.001
+    # )
+    # one_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.01)
+    # five_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.05)
     # twenty_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(0.2)
     # hundred_percent_hardcoded_asn_cls_dict = get_percentage_hardcoded_asn_cls_dict(1)
 
@@ -56,31 +59,39 @@ def get_scenario_configs():
         ScenarioConfig(
             BasePolicyCls=BGPFullIgnoreInvalid,
             AdoptPolicyCls=RoSTFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
+            ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario,
             hardcoded_asn_cls_dict=one_t1_hardcoded_asn_cls_dict,
-            scenario_label="1 Tier-1 AS",
+            scenario_label="1 Tier-1 AS (only customer cone)",
         ),
-        ScenarioConfig(
-            BasePolicyCls=BGPFullIgnoreInvalid,
-            AdoptPolicyCls=RoSTFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=one_tenth_percent_hardcoded_asn_cls_dict,
-            scenario_label="0.1% Dropping Withdrawals",
-        ),
-        ScenarioConfig(
-            BasePolicyCls=BGPFullIgnoreInvalid,
-            AdoptPolicyCls=RoSTFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=one_percent_hardcoded_asn_cls_dict,
-            scenario_label="1% Dropping Withdrawals",
-        ),
-        ScenarioConfig(
-            BasePolicyCls=BGPFullIgnoreInvalid,
-            AdoptPolicyCls=RoSTFull,
-            ScenarioCls=VictimsPrefixWithdrawalScenario,
-            hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
-            scenario_label="5% Dropping Withdrawals",
-        ),
+        # ScenarioConfig(
+        #     BasePolicyCls=BGPFullIgnoreInvalid,
+        #     AdoptPolicyCls=RoSTFull,
+        #     ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #     hardcoded_asn_cls_dict=one_t1_hardcoded_asn_cls_dict,
+        #     scenario_label="1 Tier-1 AS",
+        # ),
+        # ScenarioConfig(
+        #     BasePolicyCls=BGPFullIgnoreInvalid,
+        #     AdoptPolicyCls=RoSTFull,
+        #     ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #     hardcoded_asn_cls_dict=one_tenth_percent_hardcoded_asn_cls_dict,
+        #     scenario_label="0.1% Dropping Withdrawals",
+        # ),
+        # ScenarioConfig(
+        #     BasePolicyCls=BGPFullIgnoreInvalid,
+        #     AdoptPolicyCls=RoSTFull,
+        #     ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #     hardcoded_asn_cls_dict=one_percent_hardcoded_asn_cls_dict,
+        #     scenario_label="1% Dropping Withdrawals",
+        # ),
+        # ScenarioConfig(
+        #     BasePolicyCls=BGPFullIgnoreInvalid,
+        #     AdoptPolicyCls=RoSTFull,
+        #     ScenarioCls=VictimsPrefixWithdrawalScenario,
+        #     hardcoded_asn_cls_dict=five_percent_hardcoded_asn_cls_dict,
+        #     scenario_label="5% Dropping Withdrawals",
+        # ),
+        #####################################################################
         # ScenarioConfig(
         #     BasePolicyCls=BGPFullIgnoreInvalid,
         #     AdoptPolicyCls=RoSTFull,
