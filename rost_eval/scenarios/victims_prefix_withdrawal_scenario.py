@@ -40,6 +40,13 @@ class VictimsPrefixWithdrawalScenario(ValidPrefix):
 
         return frozenset()
 
+    @cached_property
+    def _default_non_adopters(self) -> frozenset[int]:
+        """We don't want the victim to adopt here"""
+
+        return super()._default_non_adopters | self.victim_asns
+
+
     def get_policy_cls(self, as_obj: "AS") -> type["Policy"]:
         """Returns the policy class for a given AS to set"""
 
