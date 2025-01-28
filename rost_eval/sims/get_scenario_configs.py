@@ -16,7 +16,7 @@ from rost_eval.scenarios import (
 )
 
 
-def get_scenario_configs():
+def get_scenario_configs(ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario):
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
     tier_1_ases = bgp_dag.as_groups[ASGroups.INPUT_CLIQUE.value]
     tier_1_ases = sorted(tier_1_ases, key=lambda x: x.customer_cone_size, reverse=True)
@@ -29,7 +29,7 @@ def get_scenario_configs():
         ScenarioConfig(
             BasePolicyCls=BGPFullIgnoreInvalid,
             AdoptPolicyCls=RoSTFull,
-            ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario,
+            ScenarioCls=ScenarioCls,
             hardcoded_asn_cls_dict=hardcoded_list,
             scenario_label=label,
         )

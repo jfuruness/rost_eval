@@ -10,6 +10,10 @@ from bgpy.shared.enums import (
     SpecialPercentAdoptions,
 )
 from bgpy.simulation_framework.graph_data_aggregator.graph_category import GraphCategory
+from rost_eval.scenarios import (
+    VictimsPrefixWithdrawalOnlyCCScenario,
+    VictimsPrefixWithdrawalScenario,
+)
 
 from .sims import RoSTSim, get_scenario_configs
 
@@ -37,20 +41,25 @@ def main():
     """Runs the defaults"""
 
     start = time.perf_counter()
-    sim = RoSTSim(
-        percent_adoptions=(
-            SpecialPercentAdoptions.ONLY_ONE,
-            0.1,
-            0.2,
-            0.5,
-            0.8,
-            0.99,
-        ),
-        scenario_configs=get_scenario_configs(),
-        control_plane_tracking=True,
-        graph_categories=tuple(get_all_graph_categories()),
-    )
-    sim.run()
+    for ScenarioCls in (
+        VictimsPrefixWithdrawalOnlyCCScenario,
+        VictimsPrefixWithdrawalScenario,
+    ):
+        sim = RoSTSim(
+            percent_adoptions=(
+                SpecialPercentAdoptions.ONLY_ONE,
+                0.1,
+                0.2,
+                0.5,
+                0.8,
+                0.99,
+            ),
+            scenario_configs=get_scenario_configs(ScenarioCls=ScenarioCls),
+            control_plane_tracking=True,
+            graph_categories=tuple(get_all_graph_categories()),
+            sim_name=ScenarioCls.__name__,
+        )
+        sim.run()
     logging.info(f"{time.perf_counter() - start}s for {sim.sim_name}")
 
 
