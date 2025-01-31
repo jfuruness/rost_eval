@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import TYPE_CHECKING
 
 from bgpy.shared.enums import Prefixes, SpecialPercentAdoptions
@@ -34,29 +33,30 @@ class VictimsPrefixWithdrawalScenario(ValidPrefix):
                 )
                 as_obj.policy.withdraw_ann_from_neighbors(withdraw_ann)
 
-    @cached_property
-    def _default_adopters(self) -> frozenset[int]:
-        """We don't want the victim to adopt here"""
+    # NOTE Commented out code below is to make origin not adopting
 
-        return frozenset()
+    # @cached_property
+    # def _default_adopters(self) -> frozenset[int]:
+    #     """We don't want the victim to adopt here"""
 
-    @cached_property
-    def _default_non_adopters(self) -> frozenset[int]:
-        """We don't want the victim to adopt here"""
+    #     return frozenset()
 
-        return super()._default_non_adopters | self.victim_asns
+    # @cached_property
+    # def _default_non_adopters(self) -> frozenset[int]:
+    #     """We don't want the victim to adopt here"""
 
+    #     return super()._default_non_adopters | self.victim_asns
 
-    def get_policy_cls(self, as_obj: "AS") -> type["Policy"]:
-        """Returns the policy class for a given AS to set"""
+    # def get_policy_cls(self, as_obj: "AS") -> type["Policy"]:
+    #     """Returns the policy class for a given AS to set"""
 
-        asn = as_obj.asn
-        if asn in self.victim_asns:
-            if asn in self.adopting_asns:
-                return self.scenario_config.AdoptPolicyCls
-            else:
-                return self.scenario_config.hardcoded_base_asn_cls_dict.get(
-                    asn, self.scenario_config.BasePolicyCls
-                )
-        else:
-            return super().get_policy_cls(as_obj)
+    #     asn = as_obj.asn
+    #     if asn in self.victim_asns:
+    #         if asn in self.adopting_asns:
+    #             return self.scenario_config.AdoptPolicyCls
+    #         else:
+    #             return self.scenario_config.hardcoded_base_asn_cls_dict.get(
+    #                 asn, self.scenario_config.BasePolicyCls
+    #             )
+    #     else:
+    #         return super().get_policy_cls(as_obj)

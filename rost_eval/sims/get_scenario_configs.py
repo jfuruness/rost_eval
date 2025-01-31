@@ -36,7 +36,6 @@ def get_scenario_configs(ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario):
         for hardcoded_list, label in hardcoded_asn_dicts
     ]
 
-
     # asns = tuple(bgp_dag.as_dict)
 
     # one_t1_hardcoded_asn_cls_dict = frozendict(
