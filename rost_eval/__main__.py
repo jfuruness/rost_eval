@@ -13,6 +13,7 @@ from bgpy.simulation_framework.graph_data_aggregator.graph_category import Graph
 from rost_eval.scenarios import (
     VictimsPrefixWithdrawalOnlyCCScenario,
     VictimsPrefixWithdrawalScenario,
+    VictimsPrefixWithdrawalOnlyCCScenarioAdopters
 )
 
 from .sims import RoSTSim, get_scenario_configs
@@ -20,17 +21,15 @@ from .sims import RoSTSim, get_scenario_configs
 
 def get_all_graph_categories() -> Iterable[GraphCategory]:
     """Returns all possible metric key combos"""
-
-    for plane in [Plane.DATA, Plane.CTRL]:
-        for as_group in [ASGroups.ALL_WOUT_IXPS]:
-            for outcome in [x for x in Outcomes if x != Outcomes.UNDETERMINED]:
-                for in_adopting_asns_enum in list(InAdoptingASNs):
-                    yield GraphCategory(
-                        plane=plane,
-                        as_group=as_group,
-                        outcome=outcome,
-                        in_adopting_asns=in_adopting_asns_enum,
-                    )
+    for as_group in [ASGroups.ALL_WOUT_IXPS]:
+        for outcome in [x for x in Outcomes if x != Outcomes.UNDETERMINED]:
+            for in_adopting_asns_enum in list(InAdoptingASNs):
+                yield GraphCategory(
+                    plane=Plane.DATA,
+                    as_group=as_group,
+                    outcome=outcome,
+                    in_adopting_asns=in_adopting_asns_enum,
+                )
 
 
 logger = logging.getLogger("rost_eval")
@@ -42,7 +41,7 @@ def main():
 
     start = time.perf_counter()
     for ScenarioCls in (
-        VictimsPrefixWithdrawalOnlyCCScenario,
+        VictimsPrefixWithdrawalOnlyCCScenarioAdopters,
         VictimsPrefixWithdrawalScenario,
     ):
         sim = RoSTSim(
@@ -56,6 +55,7 @@ def main():
             ),
             scenario_configs=get_scenario_configs(ScenarioCls=ScenarioCls),
             control_plane_tracking=True,
+            data_plane_tracking=False,
             graph_categories=tuple(get_all_graph_categories()),
             sim_name=f"RoST_{ScenarioCls.__name__}",
         )
