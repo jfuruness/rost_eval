@@ -40,10 +40,8 @@ class VictimsPrefixWithdrawalOnlyCCScenarioAdopters(VictimsPrefixWithdrawalScena
 
         for adopters_asn in self.adopting_asns:
             adopters_as_obj = self.engine.as_graph.as_dict[adopters_asn]
-            if not adopters_as_obj.customer_cone_asns:
-                continue
-            # assert suppressor_as_obj.customer_cone_asns, "for mypy"
+            assert adopter_as_obj.customer_cone_asns, "for mypy"
             adopters_customer_cone_asns.update(adopters_as_obj.customer_cone_asns)
         asns = set(self.engine.as_graph.as_dict)
-        self._extra_untracked_asns = asns.difference(adopters_customer_cone_asns)
-        return super().untracked_asns | self._extra_untracked_asns
+        extra_untracked_asns = asns.difference(adopters_customer_cone_asns)
+        return super().untracked_asns | extra_untracked_asns

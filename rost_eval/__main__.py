@@ -21,16 +21,17 @@ from .sims import RoSTSim, get_scenario_configs
 
 def get_all_graph_categories() -> Iterable[GraphCategory]:
     """Returns all possible metric key combos"""
-    for as_group in [ASGroups.ALL_WOUT_IXPS]:
-        for outcome in [x for x in Outcomes if x != Outcomes.UNDETERMINED]:
-            for in_adopting_asns_enum in list(InAdoptingASNs):
-                yield GraphCategory(
-                    plane=Plane.DATA,
-                    as_group=as_group,
-                    outcome=outcome,
-                    in_adopting_asns=in_adopting_asns_enum,
-                )
 
+    for plane in [Plane.DATA, Plane.CTRL]:
+        for as_group in [ASGroups.ALL_WOUT_IXPS]:
+            for outcome in [x for x in Outcomes if x != Outcomes.UNDETERMINED]:
+                for in_adopting_asns_enum in list(InAdoptingASNs):
+                    yield GraphCategory(
+                        plane=plane,
+                        as_group=as_group,
+                        outcome=outcome,
+                        in_adopting_asns=in_adopting_asns_enum,
+                    )
 
 logger = logging.getLogger("rost_eval")
 logger.setLevel(logging.INFO)

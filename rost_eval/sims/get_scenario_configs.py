@@ -1,4 +1,5 @@
 # import random
+from dataclasses import replace
 
 from frozendict import frozendict
 
@@ -8,6 +9,7 @@ from bgpy.simulation_engine import (
     BGPFullIgnoreInvalid,
     BGPFullSuppressWithdrawals,
     RoSTFull,
+    ASPathRoSTFull,
 )
 from bgpy.simulation_framework import ScenarioConfig
 from rost_eval.scenarios import (
@@ -25,7 +27,7 @@ def get_scenario_configs(ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario):
         for x in tier_1_ases[:5]
     ]
 
-    return [
+    configs = [
         ScenarioConfig(
             BasePolicyCls=BGPFullIgnoreInvalid,
             AdoptPolicyCls=RoSTFull,
@@ -35,6 +37,14 @@ def get_scenario_configs(ScenarioCls=VictimsPrefixWithdrawalOnlyCCScenario):
         )
         for hardcoded_list, label in hardcoded_asn_dicts
     ]
+    configs += [
+        replace(
+            config,
+            AdoptPolicyCls=ASPathRoSTFull,
+            scenario_label=config.scenario_label+"_v_as_path"
+        ) for config in configs
+    ]
+    return configs
 
     # asns = tuple(bgp_dag.as_dict)
 
