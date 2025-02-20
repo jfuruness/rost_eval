@@ -56,7 +56,7 @@ def main():
             ),
             scenario_configs=get_scenario_configs(ScenarioCls=ScenarioCls),
             control_plane_tracking=True,
-            data_plane_tracking=False,
+            data_plane_tracking=True,
             graph_categories=tuple(get_all_graph_categories()),
             sim_name=f"RoST_{ScenarioCls.__name__}",
         )
